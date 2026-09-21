@@ -163,42 +163,75 @@ function cleanUsername(v) {
 
 function registerInstagram(handle) {
   return new Promise((resolve, reject) => {
+
     const callbackName =
-      "ganpatiRegister_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+      "ganpatiRegister_" +
+      Date.now() +
+      "_" +
+      Math.floor(Math.random() * 100000);
 
     const script = document.createElement("script");
 
-    const cleanup = () => {
-      delete window[callbackName];
+    let finished = false;
+
+    function cleanup() {
       if (script.parentNode) {
         script.parentNode.removeChild(script);
       }
-    };
+
+      try {
+        delete window[callbackName];
+      } catch (e) {
+        window[callbackName] = undefined;
+      }
+    }
 
     const timeout = setTimeout(() => {
-      cleanup();
-      reject(new Error("Registration request timed out"));
-    }, 15000);
+      if (finished) return;
 
-    window[callbackName] = (data) => {
+      finished = true;
+      cleanup();
+
+      reject(new Error("Registration request timed out"));
+    }, 20000);
+
+    window[callbackName] = function(data) {
+
+      if (finished) return;
+
+      finished = true;
       clearTimeout(timeout);
       cleanup();
 
       if (!data || !data.ok) {
-        reject(new Error(data?.error || "Registration failed"));
+        reject(
+          new Error(
+            data && data.error
+              ? data.error
+              : "Registration failed"
+          )
+        );
+
         return;
       }
 
       resolve(data);
     };
 
-    script.onerror = () => {
+    script.onerror = function() {
+
+      if (finished) return;
+
+      finished = true;
       clearTimeout(timeout);
       cleanup();
-      reject(new Error("Could not connect to registration server"));
+
+      reject(
+        new Error("Could not connect to registration server")
+      );
     };
 
-    const url =
+    const requestUrl =
       CONFIG.backendUrl +
       "?action=register" +
       "&instagram=" +
@@ -206,63 +239,95 @@ function registerInstagram(handle) {
       "&callback=" +
       encodeURIComponent(callbackName);
 
-    script.src = url;
+    script.src = requestUrl;
+
     document.body.appendChild(script);
   });
 }
 
-form.addEventListener("submit", async (e) => {
+
+form.addEventListener("submit", async function(e) {
+
   e.preventDefault();
 
   const handle = cleanUsername(username.value);
 
   if (!/^[A-Za-z0-9._]{1,30}$/.test(handle)) {
+
     resultMessage.textContent =
       "Please enter a valid Instagram username.";
+
     result.classList.remove("hidden");
+
     return;
   }
 
   generateBtn.disabled = true;
   generateBtn.textContent = "Generating…";
-  resultMessage.textContent = "";
+
   result.classList.add("hidden");
+  resultMessage.textContent = "";
 
   try {
+
     const data = await registerInstagram(handle);
 
     codeValue.textContent = data.code;
+
     result.classList.remove("hidden");
 
-    resultMessage.textContent = data.existing
-      ? "This username is already registered. Your existing code is shown above."
-      : "Registration saved successfully.";
+    if (data.existing) {
+
+      resultMessage.textContent =
+        "This username is already registered. Your existing code is shown above.";
+
+    } else {
+
+      resultMessage.textContent =
+        "Registration saved successfully.";
+
+    }
+
   } catch (err) {
-    console.error("GanpatiLive registration error:", err);
+
+    console.error(
+      "GanpatiLive registration error:",
+      err
+    );
 
     result.classList.remove("hidden");
+
     resultMessage.textContent =
       "Registration could not be completed. Please try again.";
+
   } finally {
+
     generateBtn.disabled = false;
     generateBtn.textContent = "Generate Code";
   }
 });
 
-copyBtn.addEventListener("click", async () => {
+
+copyBtn.addEventListener("click", async function() {
+
   const code = codeValue.textContent.trim();
 
-  if (!code || code === "GL-XXXX-XXXX") return;
+  if (!code || code === "GL-XXXX-XXXX") {
+    return;
+  }
 
   try {
+
     await navigator.clipboard.writeText(code);
 
     copyBtn.textContent = "Copied ✓";
 
-    setTimeout(() => {
+    setTimeout(function() {
       copyBtn.textContent = "Copy Code";
     }, 1600);
-  } catch {
+
+  } catch (err) {
+
     resultMessage.textContent =
       "Copy failed. Please copy the code manually.";
   }
