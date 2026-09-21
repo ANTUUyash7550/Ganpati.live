@@ -1,0 +1,77 @@
+:root{
+  --bg:#120d08;--bg2:#1d130b;--gold:#e6b85c;--gold2:#f4d38a;
+  --cream:#f7ecd3;--ink:#3b2114;--muted:#cbbda8;--line:#765329;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:#fff;font-family:Georgia,"Times New Roman",serif}
+button,input{font:inherit}
+.hero{width:100%;height:100svh;min-height:520px;background:#000;overflow:hidden}
+.hero-video{width:100%;height:100%;display:block;object-fit:cover}
+.aarti-section{padding:52px 18px 70px;background:
+ radial-gradient(circle at 50% 0,rgba(230,184,92,.13),transparent 38%),linear-gradient(180deg,var(--bg),var(--bg2))}
+.section-heading{text-align:center;margin-bottom:30px}
+.section-heading .lotus{color:var(--gold2);font-size:26px}
+.section-heading h1,.section-heading h2{margin:4px 0;font-size:42px;color:var(--gold2);font-style:italic}
+.section-heading p{margin:8px 0;color:#e7d7bd}
+.aarti-layout{max-width:760px;margin:auto}
+.aarti-player{text-align:center}
+.bell-button{width:110px;height:110px;border-radius:50%;border:1px solid var(--gold);background:radial-gradient(circle,#f1ca74,#9d6923);font-size:42px;cursor:pointer;box-shadow:0 0 0 9px #e6b85c18,0 12px 40px #0008}
+.tap-text{font-size:25px;margin:18px 0 4px;color:var(--gold2);font-style:italic}
+.subtle{color:var(--muted);font-size:14px}
+.hidden{display:none!important}
+.session-message{position:fixed;inset:0;background:#090705eF;z-index:20;display:grid;place-items:center;padding:24px}
+.session-message>div,.session-message>h2,.session-message>p,.session-message>button{grid-column:1}
+.session-message .message-icon{font-size:50px;align-self:center;margin-top:-150px}
+.session-message h2{margin-top:-20px;color:var(--gold2);font-size:32px}
+.session-message p{margin-top:55px;color:#ddd}
+.session-message button{margin-top:135px;padding:11px 28px;border-radius:25px;border:1px solid var(--gold);background:transparent;color:#fff;cursor:pointer}
+.join-section{padding:70px 18px;background:#eee0c3}
+.paper-card{max-width:900px;margin:auto;background:var(--cream);color:var(--ink);padding:44px 24px;border-radius:22px;box-shadow:0 20px 60px #0005;border:1px solid #c39b5a}
+.section-heading.dark h2{color:#4a2417}
+.section-heading.dark p{color:#765c45}
+label{display:block;max-width:760px;margin:0 auto 8px;font-weight:bold}
+.input-row{max-width:760px;margin:auto;display:flex;background:#fff;border:1px solid #c4a26c;border-radius:14px;overflow:hidden}
+.at{padding:15px 0 15px 15px;color:#8b6b42}
+.input-row input{min-width:0;flex:1;border:0;outline:0;padding:15px;background:transparent;color:#2f1c12}
+.input-row button{border:0;background:#9b661f;color:#fff;padding:0 20px;cursor:pointer}
+.form-note{text-align:center;color:#816b55;font-size:13px}
+.result{text-align:center;margin:28px auto 0;max-width:500px}
+.result-label{font-size:15px}
+.code-box{font-size:30px;letter-spacing:4px;font-weight:bold;background:#fff;border:1px dashed #a2773f;padding:18px;border-radius:12px;margin:10px 0}
+.copy-btn{border:0;background:#4b2919;color:#fff;padding:11px 22px;border-radius:25px;cursor:pointer}
+#resultMessage{min-height:20px}
+.visarjan-preview{padding:28px 18px;background:var(--bg)}
+.visarjan-link{max-width:900px;margin:auto;border:1px solid #765329;border-radius:16px;padding:18px;display:flex;align-items:center;gap:15px;color:#fff;text-decoration:none;background:#1a100a}
+.visarjan-link div{flex:1}.visarjan-link small{display:block;color:#b9aa95;margin-top:4px}
+footer{text-align:center;padding:32px 18px;color:var(--gold2);background:#0b0806}
+.footer-mantra{font-size:18px;margin-bottom:10px}
+.creator-line{font-size:14px;color:#cbbda8;margin-bottom:14px}
+.creator-line a{color:var(--gold2);text-decoration:none;font-weight:bold}
+.instagram-follow{display:inline-block;border:1px solid #765329;border-radius:999px;padding:10px 18px;color:#f7ecd3;text-decoration:none;background:#160e09;font-size:14px}
+@media(max-width:760px){
+ .hero{height:78svh;min-height:430px}
+ .section-heading h1,.section-heading h2{font-size:34px}
+ .input-row{display:grid;grid-template-columns:auto 1fr}
+ .input-row button{grid-column:1/-1;padding:14px}
+}
+
+.visarjan-announcement{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;background:#2b180d;color:#f7e3bd;text-decoration:none;border-bottom:1px solid #765329;font-size:14px;text-align:center}
+.visarjan-announcement b{color:var(--gold2)}
+.aarti-player{text-align:center}
+.youtube-audio-host{position:fixed;width:2px;height:2px;left:-2px;top:-2px;opacity:0;pointer-events:none;overflow:hidden;border:0}
+.aarti-credits{margin:28px auto 0;max-width:620px;border-top:1px solid #765329;padding-top:18px}
+.credits-title{color:var(--gold2);font-weight:bold;margin-bottom:10px}
+.credit-list{display:grid;gap:7px;text-align:left}
+.credit-item{display:flex;justify-content:space-between;gap:15px;padding:10px 12px;border:1px solid #4e351e;border-radius:10px;background:#160e09;color:#ead7b7;text-decoration:none}
+.credit-item small{color:#bca889;text-align:right}
+.mantra-note{padding:0 18px 70px;background:var(--bg2)}
+.note-card{max-width:760px;margin:auto;background:var(--cream);color:var(--ink);padding:38px 24px;border-radius:22px;border:1px solid #c39b5a}
+.note-card ol{max-width:520px;margin:0 auto;padding-left:28px;line-height:2;font-size:17px}
+
+.aarti-player-card{max-width:760px;margin:26px auto 0;padding:16px 18px;display:grid;grid-template-columns:52px 1fr 42px 48px 42px;align-items:center;gap:10px;text-align:left;background:#17100a;border:1px solid #5f4325;border-radius:18px;box-shadow:0 12px 35px #0005}
+.track-art{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(145deg,#f0c66e,#8c5b20);font-size:25px}
+.track-info{min-width:0}.track-info strong,.track-info span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.track-info strong{color:#f5d997;font-size:15px}.track-info span{color:#a99a84;font-size:12px;margin-top:3px}
+.player-main,.player-skip{border:0;background:transparent;color:#f6d68e;cursor:pointer}.player-main{width:42px;height:42px;border-radius:50%;background:#f1cc76;color:#25170c;font-weight:bold;font-size:17px}.player-skip{font-size:17px}
+.progress-wrap{grid-column:2/6;display:grid;grid-template-columns:35px 1fr 35px;align-items:center;gap:8px;color:#a99a84;font-size:10px}.progress-wrap input{width:100%;accent-color:#e6b85c;cursor:pointer}
+@media(max-width:600px){.aarti-player-card{grid-template-columns:48px 1fr 38px 44px 38px;padding:14px 12px}.track-art{width:48px;height:48px}.progress-wrap{grid-column:1/-1}}
