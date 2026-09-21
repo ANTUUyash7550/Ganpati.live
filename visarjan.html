@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#120d08">
+<title>Visarjan — GanpatiLive</title>
+<link rel="stylesheet" href="./style.css">
+<style>
+.count-page{min-height:100svh;display:grid;place-items:center;padding:30px;background:
+radial-gradient(circle at 50% 30%,#6e471e55,transparent 40%),#120d08}
+.count-card{text-align:center;max-width:900px;width:100%;padding:48px 20px;border:1px solid #765329;border-radius:24px;background:#1a100a;box-shadow:0 30px 80px #0008}
+.count-card .symbol{font-size:52px}
+.count-card h1{color:#f4d38a;font-size:clamp(38px,8vw,72px);font-style:italic;margin:12px 0}
+.date{font-size:22px;color:#fff;margin:12px}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:720px;margin:35px auto}
+.unit{border:1px solid #765329;border-radius:16px;padding:18px 8px}
+.unit strong{display:block;font-size:clamp(30px,7vw,55px);color:#f4d38a}
+.unit span{color:#b9aa95;font-size:12px;text-transform:uppercase;letter-spacing:2px}
+.back{display:inline-block;margin-top:15px;color:#f4d38a;text-decoration:none}
+@media(max-width:600px){.countdown{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<main class="count-page">
+<div class="count-card">
+<div class="symbol">🪔</div>
+<h1>Visarjan</h1>
+<div class="date">Anant Chaturdashi • 25 September 2026</div>
+<div class="countdown" id="countdown">
+<div class="unit"><strong id="days">0</strong><span>Days</span></div>
+<div class="unit"><strong id="hours">0</strong><span>Hours</span></div>
+<div class="unit"><strong id="minutes">0</strong><span>Minutes</span></div>
+<div class="unit"><strong id="seconds">0</strong><span>Seconds</span></div>
+</div>
+<h2 id="done" class="hidden" style="color:#f4d38a">🪔 VISARJAN DAY 🪔</h2>
+<p style="color:#ddd">Ganpati Bappa Morya 🙏</p>
+<a class="back" href="./index.html">← Back to GanpatiLive</a>
+</div>
+</main>
+<script>
+const target = new Date("2026-09-25T00:00:00");
+function tick(){
+ const diff = target - new Date();
+ if(diff <= 0){
+  document.getElementById("countdown").classList.add("hidden");
+  document.getElementById("done").classList.remove("hidden");
+  return;
+ }
+ const d=Math.floor(diff/86400000);
+ const h=Math.floor(diff/3600000)%24;
+ const m=Math.floor(diff/60000)%60;
+ const s=Math.floor(diff/1000)%60;
+ document.getElementById("days").textContent=d;
+ document.getElementById("hours").textContent=h;
+ document.getElementById("minutes").textContent=m;
+ document.getElementById("seconds").textContent=s;
+}
+tick(); setInterval(tick,1000);
+</script>
+</body>
+</html>
