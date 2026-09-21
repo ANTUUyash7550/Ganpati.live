@@ -157,37 +157,92 @@ const codeValue = document.getElementById("codeValue");
 const copyBtn = document.getElementById("copyCode");
 const resultMessage = document.getElementById("resultMessage");
 
-function cleanUsername(v) { return v.trim().replace(/^@+/, "").replace(/\s+/g, ""); }
+function cleanUsername(v) {
+  return v.trim().replace(/^@+/, "").replace(/\s+/g, "");
+}
+
+function registerInstagram(handle) {
+  return new Promise((resolve, reject) => {
+    const callbackName =
+      "ganpatiRegister_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+
+    const script = document.createElement("script");
+
+    const cleanup = () => {
+      delete window[callbackName];
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
+
+    const timeout = setTimeout(() => {
+      cleanup();
+      reject(new Error("Registration request timed out"));
+    }, 15000);
+
+    window[callbackName] = (data) => {
+      clearTimeout(timeout);
+      cleanup();
+
+      if (!data || !data.ok) {
+        reject(new Error(data?.error || "Registration failed"));
+        return;
+      }
+
+      resolve(data);
+    };
+
+    script.onerror = () => {
+      clearTimeout(timeout);
+      cleanup();
+      reject(new Error("Could not connect to registration server"));
+    };
+
+    const url =
+      CONFIG.backendUrl +
+      "?action=register" +
+      "&instagram=" +
+      encodeURIComponent(handle) +
+      "&callback=" +
+      encodeURIComponent(callbackName);
+
+    script.src = url;
+    document.body.appendChild(script);
+  });
+}
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+
   const handle = cleanUsername(username.value);
+
   if (!/^[A-Za-z0-9._]{1,30}$/.test(handle)) {
-    resultMessage.textContent = "Please enter a valid Instagram username.";
+    resultMessage.textContent =
+      "Please enter a valid Instagram username.";
     result.classList.remove("hidden");
     return;
   }
+
   generateBtn.disabled = true;
   generateBtn.textContent = "Generating…";
   resultMessage.textContent = "";
+  result.classList.add("hidden");
+
   try {
-    const response = await fetch(CONFIG.backendUrl, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ action: "register", instagram: handle })
-    });
-    if (!response.ok) throw new Error(`Server error (${response.status})`);
-    const data = await response.json();
-    if (!data.ok) throw new Error(data.error || "Registration failed");
+    const data = await registerInstagram(handle);
+
     codeValue.textContent = data.code;
     result.classList.remove("hidden");
+
     resultMessage.textContent = data.existing
       ? "This username is already registered. Your existing code is shown above."
       : "Registration saved successfully.";
   } catch (err) {
-    result.classList.remove("hidden");
-    resultMessage.textContent = "Registration could not be completed. Please try again.";
     console.error("GanpatiLive registration error:", err);
+
+    result.classList.remove("hidden");
+    resultMessage.textContent =
+      "Registration could not be completed. Please try again.";
   } finally {
     generateBtn.disabled = false;
     generateBtn.textContent = "Generate Code";
@@ -195,11 +250,20 @@ form.addEventListener("submit", async (e) => {
 });
 
 copyBtn.addEventListener("click", async () => {
+  const code = codeValue.textContent.trim();
+
+  if (!code || code === "GL-XXXX-XXXX") return;
+
   try {
-    await navigator.clipboard.writeText(codeValue.textContent);
+    await navigator.clipboard.writeText(code);
+
     copyBtn.textContent = "Copied ✓";
-    setTimeout(() => copyBtn.textContent = "Copy Code", 1600);
+
+    setTimeout(() => {
+      copyBtn.textContent = "Copy Code";
+    }, 1600);
   } catch {
-    resultMessage.textContent = "Copy failed. Please copy the code manually.";
+    resultMessage.textContent =
+      "Copy failed. Please copy the code manually.";
   }
 });
