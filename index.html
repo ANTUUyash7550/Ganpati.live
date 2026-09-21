@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#120d08">
+  <meta name="description" content="GanpatiLive — Ganpati Bappa Morya">
+  <title>GanpatiLive — Ganpati Bappa Morya</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="visarjan-announcement" href="./visarjan.html">
+    🪔 <strong>Visarjan • 25 September 2026</strong>
+    <span>Bappa ke Visarjan mein hamare saath judiye</span>
+    <b>Join Visarjan →</b>
+  </a>
+
+  <main>
+    <section class="hero" aria-label="Ganesh Ji">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto">
+        <source src="./assets/ganesha-video.mp4" type="video/mp4">
+      </video>
+    </section>
+
+    <section class="aarti-section" id="aarti">
+      <div class="section-heading">
+        <div class="lotus">✦</div>
+        <h1>Aarti</h1>
+        <p>॥ Shree Ganeshaya Namah ॥</p>
+      </div>
+
+      <div class="aarti-player" id="aartiPlayer">
+        <button class="bell-button" id="aartiBell" type="button" aria-label="Start Aarti">
+          <span>🔔</span>
+        </button>
+        <p class="tap-text" id="aartiStatus">Tap the bell to start Aarti</p>
+        <p class="subtle">Aarti plays only during the prayer session.</p>
+
+        <div class="aarti-player-card" id="aartiControls" aria-label="Aarti audio player">
+          <div class="track-art">🪔</div>
+          <div class="track-info">
+            <strong id="nowPlayingTitle">Karpur Gauram</strong>
+            <span id="nowPlayingCredit">Times Music Spiritual</span>
+          </div>
+          <button class="player-skip" id="prevTrack" type="button" aria-label="Previous prayer">⏮</button>
+          <button class="player-main" id="playPause" type="button" aria-label="Play">▶</button>
+          <button class="player-skip" id="nextTrack" type="button" aria-label="Next prayer">⏭</button>
+          <div class="progress-wrap">
+            <span id="currentTime">0:00</span>
+            <input id="progressBar" type="range" min="0" max="100" value="0" step="0.1" aria-label="Prayer progress">
+            <span id="duration">0:00</span>
+          </div>
+        </div>
+
+        <!-- YouTube is used only as the playback source; no video or YouTube controls are shown. -->
+        <div id="youtubePlayer" class="youtube-audio-host" aria-hidden="true"></div>
+
+        <div class="aarti-credits">
+          <div class="credits-title">Prayer Credits & Original Sources</div>
+          <div class="credit-list" id="creditList"></div>
+        </div>
+
+        <div class="session-message hidden" id="outsideMessage">
+          <div class="message-icon">🪔</div>
+          <h2>Aarti Time Only</h2>
+          <p>Please visit during the Aarti prayer session.<br>Ganpati Bappa Morya 🙏</p>
+          <button id="closeMessage" type="button">Okay</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="mantra-note">
+      <div class="note-card">
+        <div class="section-heading dark">
+          <div class="lotus">✦</div>
+          <h2>Positive Energy Mantra</h2>
+          <p>Six prayers in sequence</p>
+        </div>
+        <ol>
+          <li><strong>Karpur Gauram</strong></li>
+          <li><strong>Shiv Mantra</strong></li>
+          <li><strong>Ghalin Lotangan</strong></li>
+          <li><strong>Tvamev Mata</strong></li>
+          <li><strong>Achyutam Keshavam</strong></li>
+          <li><strong>Hare Ram Mahamantra</strong></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="join-section" id="join">
+      <div class="paper-card">
+        <div class="section-heading dark">
+          <div class="lotus">✦</div>
+          <h2>Join Visarjan</h2>
+          <p>Be a part of the celebration</p>
+        </div>
+
+        <form id="registrationForm" novalidate>
+          <label for="instagram">Instagram username</label>
+          <div class="input-row">
+            <span class="at">@</span>
+            <input id="instagram" name="instagram" type="text"
+                   placeholder="yourusername" autocomplete="off" maxlength="30" required>
+            <button type="submit" id="generateBtn">Generate Code</button>
+          </div>
+          <p class="form-note">One person • One private code</p>
+        </form>
+
+        <div class="result hidden" id="registrationResult">
+          <p class="result-label">Your private Visarjan code</p>
+          <div class="code-box" id="codeValue">GL-XXXX-XXXX</div>
+          <button class="copy-btn" id="copyCode" type="button">Copy Code</button>
+          <p id="resultMessage"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="visarjan-preview">
+      <a class="visarjan-link" href="./visarjan.html">
+        <span>🪔</span>
+        <div>
+          <strong>Visarjan Countdown</strong>
+          <small>25 September 2026 • Anant Chaturdashi</small>
+        </div>
+        <span>→</span>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+  <div class="footer-mantra">॥ Ganpati Bappa Morya ॥</div>
+  <div class="creator-line">Made with ❤️ by <a href="https://www.instagram.com/yadavyash61/" target="_blank" rel="noopener noreferrer">@yadavyash61</a></div>
+  <a class="instagram-follow" href="https://www.instagram.com/yadavyash61/" target="_blank" rel="noopener noreferrer">◎ Follow @yadavyash61 on Instagram</a>
+</footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
